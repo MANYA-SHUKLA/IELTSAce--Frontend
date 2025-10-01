@@ -1,87 +1,103 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingImages from '@/components/FloatingImages';
 import styles from './courses.module.css';
 
+interface Game {
+  id: number;
+  title: string;
+  thumbnail: string;
+  short_description: string;
+  game_url: string;
+  genre: string;
+  platform: string;
+  publisher: string;
+  developer: string;
+  release_date: string;
+  freetogame_profile_url: string;
+}
+
 export default function CoursesPage() {
-  const courses = [
-    {
-      id: 1,
-      title: "IELTS Academic Complete",
-      level: "Advanced",
-      duration: "8 weeks",
-      lessons: "40+ lessons",
-      price: "$299",
-      originalPrice: "$399",
-      features: [
-        "Full speaking practice with AI feedback",
-        "8 complete mock tests",
-        "Writing task 1 & 2 evaluation",
-        "Personalized study plan",
-        "Expert instructor support",
-        "Band score prediction"
-      ],
-      popular: true,
-      color: "blue"
-    },
-    {
-      id: 2,
-      title: "IELTS General Training",
-      level: "Intermediate",
-      duration: "6 weeks",
-      lessons: "30+ lessons",
-      price: "$249",
-      originalPrice: "$329",
-      features: [
-        "General writing task practice",
-        "6 complete mock tests",
-        "Speaking simulation tests",
-        "Vocabulary building",
-        "Reading strategies",
-        "Listening practice tests"
-      ],
-      popular: false,
-      color: "green"
-    },
-    {
-      id: 3,
-      title: "Speaking & Writing Focus",
-      level: "All Levels",
-      duration: "4 weeks",
-      lessons: "20+ lessons",
-      price: "$179",
-      originalPrice: "$229",
-      features: [
-        "Daily speaking practice",
-        "Writing task evaluation",
-        "Pronunciation correction",
-        "Grammar and vocabulary",
-        "Instant AI feedback",
-        "Flexible schedule"
-      ],
-      popular: false,
-      color: "purple"
-    },
-    {
-      id: 4,
-      title: "Express Intensive",
-      level: "Advanced",
-      duration: "2 weeks",
-      lessons: "15+ lessons",
-      price: "$199",
-      originalPrice: "$259",
-      features: [
-        "Rapid preparation",
-        "5 full mock tests",
-        "Priority feedback",
-        "Exam strategies",
-        "Time management",
-        "Quick results focus"
-      ],
-      popular: true,
-      color: "orange"
-    }
+  const [allGames, setAllGames] = useState<Game[]>([]);
+  const [displayedGames, setDisplayedGames] = useState<Game[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const gamesPerPage = 10;
+
+  // Fetch games from API
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        console.log('Fetching games from API...');
+        const response = await fetch('/api/games');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const games: Game[] = await response.json();
+        console.log('Fetched games:', games.length);
+        setAllGames(games);
+        setDisplayedGames(games.slice(0, gamesPerPage));
+      } catch (error) {
+        console.error('Error fetching games:', error);
+        setError(error instanceof Error ? error.message : 'Failed to fetch courses');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGames();
+  }, []);
+
+  // Load more games
+  const loadMoreGames = () => {
+    setLoadingMore(true);
+    setTimeout(() => {
+      const nextPage = currentPage + 1;
+      const startIndex = currentPage * gamesPerPage;
+      const endIndex = nextPage * gamesPerPage;
+      const newGames = allGames.slice(startIndex, endIndex);
+      setDisplayedGames(prev => [...prev, ...newGames]);
+      setCurrentPage(nextPage);
+      setLoadingMore(false);
+    }, 500); // Small delay for better UX
+  };
+
+  // Check if there are more games to load
+  const hasMoreGames = displayedGames.length < allGames.length;
+
+  // Convert game data to course format for display
+  const getGameFeatures = (game: Game) => [
+    `Genre: ${game.genre}`,
+    `Platform: ${game.platform}`,
+    `Publisher: ${game.publisher}`,
+    `Developer: ${game.developer}`,
+    `Released: ${game.release_date}`,
+    "Free to Play"
   ];
+
+  const getRandomPrice = () => {
+    const prices = ["$99", "$149", "$199", "$249", "$299"];
+    return prices[Math.floor(Math.random() * prices.length)];
+  };
+
+  const getRandomOriginalPrice = (price: string) => {
+    const current = parseInt(price.replace('$', ''));
+    return `$${current + 50}`;
+  };
+
+  const getRandomColor = () => {
+    const colors = ["blue", "green", "purple", "orange"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   const features = [
     {
@@ -160,56 +176,101 @@ export default function CoursesPage() {
             All courses include mock tests, expert feedback, and personalized support
           </p>
           
-          <div className={styles.coursesGrid}>
-            {courses.map((course) => (
-              <div 
-                key={course.id} 
-                className={`${styles.courseCard} ${course.popular ? styles.popular : ''}`}
-                data-color={course.color}
-              >
-                {course.popular && (
-                  <div className={styles.popularBadge}>Most Popular</div>
-                )}
-                
-                <div className={styles.courseHeader}>
-                  <h3 className={styles.courseTitle}>{course.title}</h3>
-                  <div className={styles.courseLevel}>{course.level}</div>
-                </div>
-                
-                <div className={styles.courseMeta}>
-                  <div className={styles.metaItem}>
-                    <span className={styles.metaLabel}>Duration:</span>
-                    <span className={styles.metaValue}>{course.duration}</span>
-                  </div>
-                  <div className={styles.metaItem}>
-                    <span className={styles.metaLabel}>Lessons:</span>
-                    <span className={styles.metaValue}>{course.lessons}</span>
-                  </div>
-                </div>
-                
-                <div className={styles.priceSection}>
-                  <div className={styles.price}>
-                    <span className={styles.currentPrice}>{course.price}</span>
-                    <span className={styles.originalPrice}>{course.originalPrice}</span>
-                  </div>
-                  <div className={styles.discount}>Save 25%</div>
-                </div>
-                
-                <ul className={styles.featuresList}>
-                  {course.features.map((feature, index) => (
-                    <li key={index} className={styles.featureItem}>
-                      <span className={styles.checkmark}>✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <button className={styles.enrollButton}>
-                  Enroll Now
-                </button>
+          {loading ? (
+            <div className={styles.loading}>
+              <p>Loading courses...</p>
+            </div>
+          ) : error ? (
+            <div className={styles.error}>
+              <p>Error loading courses: {error}</p>
+              <button onClick={() => window.location.reload()} className={styles.retryButton}>
+                Retry
+              </button>
+            </div>
+          ) : displayedGames.length === 0 ? (
+            <div className={styles.noData}>
+              <p>No courses available at the moment.</p>
+            </div>
+          ) : (
+            <>
+              <div className={styles.coursesGrid}>
+                {displayedGames.map((game, index) => {
+                  const price = getRandomPrice();
+                  const originalPrice = getRandomOriginalPrice(price);
+                  const color = getRandomColor();
+                  const isPopular = index % 4 === 0; // Make every 4th course popular
+                  
+                  return (
+                    <div 
+                      key={game.id} 
+                      className={`${styles.courseCard} ${isPopular ? styles.popular : ''}`}
+                      data-color={color}
+                    >
+                      {isPopular && (
+                        <div className={styles.popularBadge}>Most Popular</div>
+                      )}
+                      
+                      <div className={styles.courseHeader}>
+                        <h3 className={styles.courseTitle}>{game.title}</h3>
+                        <div className={styles.courseLevel}>{game.genre}</div>
+                      </div>
+                      
+                      <div className={styles.courseMeta}>
+                        <div className={styles.metaItem}>
+                          <span className={styles.metaLabel}>Platform:</span>
+                          <span className={styles.metaValue}>{game.platform}</span>
+                        </div>
+                        <div className={styles.metaItem}>
+                          <span className={styles.metaLabel}>Publisher:</span>
+                          <span className={styles.metaValue}>{game.publisher}</span>
+                        </div>
+                      </div>
+                      
+                      <div className={styles.priceSection}>
+                        <div className={styles.price}>
+                          <span className={styles.currentPrice}>{price}</span>
+                          <span className={styles.originalPrice}>{originalPrice}</span>
+                        </div>
+                        <div className={styles.discount}>Save 25%</div>
+                      </div>
+                      
+                      <p className={styles.courseDescription}>
+                        {game.short_description}
+                      </p>
+                      
+                      <ul className={styles.featuresList}>
+                        {getGameFeatures(game).map((feature, featureIndex) => (
+                          <li key={featureIndex} className={styles.featureItem}>
+                            <span className={styles.checkmark}>✓</span>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <button className={styles.enrollButton}>
+                        Enroll Now
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+              
+              {hasMoreGames && (
+                <div className={styles.loadMoreContainer}>
+                  <button 
+                    className={styles.loadMoreButton}
+                    onClick={loadMoreGames}
+                    disabled={loadingMore}
+                  >
+                    {loadingMore ? 'Loading...' : 'Load More'}
+                  </button>
+                  <p className={styles.loadMoreInfo}>
+                    Showing {displayedGames.length} of {allGames.length} courses
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 

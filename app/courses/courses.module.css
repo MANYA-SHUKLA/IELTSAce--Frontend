@@ -147,6 +147,86 @@
   background: white;
 }
 
+.loading {
+  text-align: center;
+  padding: 4rem 0;
+  font-size: 1.125rem;
+  color: #718096;
+}
+
+.error {
+  text-align: center;
+  padding: 4rem 0;
+  color: #e53e3e;
+}
+
+.retryButton {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.retryButton:hover {
+  background: #c53030;
+}
+
+.noData {
+  text-align: center;
+  padding: 4rem 0;
+  font-size: 1.125rem;
+  color: #718096;
+}
+
+.loadMoreInfo {
+  text-align: center;
+  margin-top: 1rem;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.courseDescription {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.loadMoreContainer {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.loadMoreButton {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3);
+}
+
+.loadMoreButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .coursesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
