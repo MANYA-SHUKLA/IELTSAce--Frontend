@@ -1,4 +1,6 @@
 import SecurePdfViewer from '@/components/SecurePdfViewer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const freeMaterials = [
   {
@@ -20,8 +22,10 @@ const freeMaterials = [
 
 export default function FreeMaterialsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <div className="pt-16 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Free IELTS Materials</h1>
@@ -62,7 +66,9 @@ export default function FreeMaterialsPage() {
             Download and print options have been disabled.
           </p>
         </div>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }
