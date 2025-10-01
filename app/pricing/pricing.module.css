@@ -4,7 +4,7 @@
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 50%, #064e3b 100%);
   color: white;
   padding: 120px 0 80px;
   position: relative;
@@ -153,7 +153,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #ea580c, #fb923c);
   transition: 0.4s;
   border-radius: 34px;
 }
@@ -213,20 +213,20 @@
 }
 
 .pricingCard.popular {
-  border-color: #9f7aea;
+  border-color: #10b981;
   transform: scale(1.05);
 }
 
 .pricingCard[data-color="blue"] {
-  border-top: 6px solid #4299e1;
+  border-top: 6px solid #0ea5e9;
 }
 
 .pricingCard[data-color="purple"] {
-  border-top: 6px solid #9f7aea;
+  border-top: 6px solid #10b981;
 }
 
 .pricingCard[data-color="gold"] {
-  border-top: 6px solid #ed8936;
+  border-top: 6px solid #ea580c;
 }
 
 .popularBadge {
@@ -234,7 +234,7 @@
   top: -16px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #9f7aea, #805ad5);
+  background: linear-gradient(135deg, #10b981, #059669);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
@@ -270,18 +270,18 @@
 }
 
 .pricingCard[data-color="blue"] .planIconWrapper {
-  background: linear-gradient(135deg, #bee3f8, #90cdf4);
-  color: #2b6cb0;
+  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+  color: #0369a1;
 }
 
 .pricingCard[data-color="purple"] .planIconWrapper {
-  background: linear-gradient(135deg, #e9d8fd, #d6bcfa);
-  color: #6b46c1;
+  background: linear-gradient(135deg, #d1fae5, #86efac);
+  color: #047857;
 }
 
 .pricingCard[data-color="gold"] .planIconWrapper {
-  background: linear-gradient(135deg, #feebc8, #fbd38d);
-  color: #dd6b20;
+  background: linear-gradient(135deg, #fed7aa, #fdba74);
+  color: #c2410c;
 }
 
 .planIcon {
@@ -363,8 +363,8 @@
 .planButton {
   width: 100%;
   padding: 1rem 2rem;
-  border: 2px solid #4299e1;
-  background: #4299e1;
+  border: 2px solid #0ea5e9;
+  background: #0ea5e9;
   color: white;
   border-radius: 12px;
   font-size: 1.125rem;
@@ -374,20 +374,20 @@
 }
 
 .planButton:hover {
-  background: #3182ce;
-  border-color: #3182ce;
+  background: #0284c7;
+  border-color: #0284c7;
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px -3px rgba(66, 153, 225, 0.3);
+  box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3);
 }
 
 .popularButton {
-  background: linear-gradient(135deg, #9f7aea, #805ad5);
-  border-color: #9f7aea;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: #10b981;
 }
 
 .popularButton:hover {
-  background: linear-gradient(135deg, #805ad5, #6b46c1);
-  border-color: #805ad5;
+  background: linear-gradient(135deg, #059669, #047857);
+  border-color: #059669;
 }
 
 /* Features Section */
@@ -493,7 +493,7 @@
 
 /* CTA Section */
 .ctaSection {
-  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 50%, #064e3b 100%);
   color: white;
   padding: 80px 0;
   text-align: center;
@@ -508,7 +508,7 @@
   width: 64px;
   height: 64px;
   margin: 0 auto 2rem;
-  color: #f6e05e;
+  color: #fb923c;
 }
 
 .ctaTitle {
@@ -534,8 +534,8 @@
 }
 
 .primaryButton {
-  background: #f6e05e;
-  color: #2d3748;
+  background: linear-gradient(135deg, #ea580c, #fb923c);
+  color: white;
   border: none;
   padding: 1rem 2rem;
   border-radius: 12px;
@@ -546,9 +546,9 @@
 }
 
 .primaryButton:hover {
-  background: #ecc94b;
+  background: linear-gradient(135deg, #dc2626, #ea580c);
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px -3px rgba(246, 224, 94, 0.3);
+  box-shadow: 0 8px 15px -3px rgba(234, 88, 12, 0.3);
 }
 
 .secondaryButton {
@@ -565,7 +565,7 @@
 
 .secondaryButton:hover {
   background: white;
-  color: #1a202c;
+  color: #0f172a;
   transform: translateY(-2px);
 }
 
